@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh lpR lFf">
+  <q-layout view="hHh lyoupR lFf">
     <HeaderLayout />
 
     <q-page-container>

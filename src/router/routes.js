@@ -18,6 +18,24 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/login",
+    component: () => import("layouts/Empty.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/Profile/Login.vue"),
+      },
+      {
+        path: "register",
+        component: () => import("pages/Profile/Register.vue"),
+      },
+      {
+        path: "forgot-password",
+        component: () => import("pages/Profile/ForgotPassword.vue"),
+      },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it
