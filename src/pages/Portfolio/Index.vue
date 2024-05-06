@@ -4,7 +4,7 @@
       <q-card-section>
         <q-card-title class="flex items-center">
           <q-icon name="account_circle" class="q-mr-sm" />
-          <h5>Suas Cedulas</h5>
+          <h6>Suas Cedulas</h6>
           <q-space />
           <router-link to="/portfolio/add">
             <PrimaryButton>Adicionar</PrimaryButton>
@@ -13,8 +13,8 @@
       </q-card-section>
 
       <q-card-section>
-        <!-- <Cedula />
-          <Cedula isToSell /> -->
+        <Cedula />
+        <Cedula isToSell />
       </q-card-section>
     </q-card>
   </q-page>
