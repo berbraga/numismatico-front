@@ -6,7 +6,7 @@
           <q-icon name="account_circle" class="q-mr-sm" />
           <h6>Suas Cedulas</h6>
           <q-space />
-          <router-link to="/portfolio/add">
+          <router-link to="/dashboard/portfolio/add">
             <PrimaryButton>Adicionar</PrimaryButton>
           </router-link>
         </q-card-title>

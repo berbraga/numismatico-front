@@ -9,8 +9,16 @@
       />
 
       <q-tabs align="left">
-        <q-route-tab to="/portfolio" label="Portifólio" style="color: black" />
-        <q-route-tab to="/marketplace" label="Mercado" style="color: black" />
+        <q-route-tab
+          to="/dashboard/portfolio"
+          label="Portifólio"
+          style="color: black"
+        />
+        <q-route-tab
+          to="/dashboard/marketplace"
+          label="Mercado"
+          style="color: black"
+        />
         <!-- <q-route-tab to="/page3" label="Page Three" /> -->
       </q-tabs>
       <q-space />

@@ -1,5 +1,5 @@
 <template lang="pug">
-q-card(color="white" class="q-pa-md")
+q-card(color="white" class="q-pa-md container")
   q-card-section
     .flex.column
       h6 Login
@@ -13,13 +13,15 @@ q-card(color="white" class="q-pa-md")
           class="cursor-pointer"
           @click="isPwd = !isPwd"
         )
-    router-link( to="/login/forgot-password")
+    router-link( to="/forgot-password")
       p.text-right.text-primary Esqueceu a senha?
   q-card-section
     q-card-action(class="row")
-      q-btn(color="primary" label="Login" @click="entrar" class=" col q-px-sm")
+      router-link(to="/register" class="col q-mx-md")
+        q-btn(color="primary" label="Login" @click="Login" dense class="" flat  :ripple="{  center: true }" )
       q-space
-      q-btn(color="primary" label="Criar conta" @click="entrar" class=" col q-px-sm")
+      router-link(to="/dashboard" class="col q-mx-md")
+        q-btn(color="primary" label="Criar conta" @click="NewAccont" dense class="" flat :ripple="{  center: true }")
 </template>
 
 <script setup>
@@ -27,8 +29,18 @@ import { ref } from "vue";
 const email = ref("");
 const password = ref("");
 const isPwd = ref(true);
+const lodingLogin = ref(false);
+const lodingNewAccont = ref(false);
+const Login = () => {
+  lodingLogin.value = true;
+};
+const NewAccont = () => {
+  lodingNewAccont.value = true;
+};
 </script>
 
 <style scoped>
-/* Add styles here if necessary */
+.container {
+  min-width: 400px;
+}
 </style>
