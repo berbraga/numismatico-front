@@ -5,18 +5,22 @@ q-card(color="white" class="q-pa-md container")
       h6 Criar Conta
   q-separator(class='q-mb-md')
   q-card-section(class="q-pt-md")
-    q-input(outlined label="Nome" v-model="name" type="text" class="q-mb-md" dense)
-    q-input(outlined label="Email" v-model="email" type="email" class="q-mb-md" dense)
-    q-input(outlined label="Password" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense)
-      template(v-slot:append)
-        q-icon(
-          :name="isPwd ? 'visibility_off' : 'visibility'"
-          class="cursor-pointer"
-          @click="isPwd = !isPwd"
-        )
+    q-form(@submit.prevent="onSubmit"  class="q-gutter-sm collum" )
+      q-input(outlined label="Nome" v-model="name" type="text" class="q-mb-md" dense)
+      q-input(outlined label="Email" v-model="email" type="email" class="q-mb-md" dense)
+      q-input(outlined label="Password" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense)
+        template(v-slot:append)
+          q-icon(
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          )
+      q-btn(label="Enviar" type="submit" color="primary" class="col-3")
+      router-link(to="/" class="col q-mx-md")
+        q-btn(color="primary" label="Voltar" @click="NewAccont" dense class="" flat :ripple="{  center: true }")
     //router-link( to="/forgot-password")
       p.text-right.text-primary Esqueceu a senha?
-  q-card-section
+  //- q-card-section
     q-card-action(class="row")
       router-link(to="/" class="col q-mx-md")
         q-btn(color="primary" label="Voltar" @click="Login" dense class="" flat  :ripple="{  center: true }" )
@@ -25,6 +29,7 @@ q-card(color="white" class="q-pa-md container")
         q-btn(color="primary" label="Criar conta" @click="NewAccont" dense class="" flat :ripple="{  center: true }")
 </template>
 <script setup>
+import userService from "src/services/userService";
 import { ref } from "vue";
 const name = ref("");
 const email = ref("");
@@ -37,6 +42,22 @@ const Login = () => {
 };
 const NewAccont = () => {
   lodingNewAccont.value = true;
+};
+
+const onSubmit = async () => {
+  console.clear();
+  const body = {
+    name: name.value,
+    email: email.value,
+    password: password.value,
+  };
+  const user = new userService();
+  const res = await user.register(body);
+  console.log(res.data);
+  if (res.data.status) {
+    localStorage.setItem("user", res.data.user);
+    window.location.replace("/");
+  }
 };
 </script>
 

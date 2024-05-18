@@ -9,11 +9,19 @@ q-page(class="q-pa-md bd-black")
           PrimaryButton Adicionar
     q-card-section
 
-      Cedula
-      Cedula(isToSell)
+      Cedula(v-for="cedula in cedulas" :key="cedula.id" :cedula="cedula" )
 </template>
 <script setup>
 import Cedula from "../../components/Card/Cedula.vue";
 import PrimaryButton from "src/components/Button/PrimaryButton.vue";
+import { ref, onMounted } from "vue";
+import cedulaService from "src/services/cedulaService";
+
+const cedulas = ref([]);
+onMounted(async () => {
+  const cedula = new cedulaService();
+  cedulas.value = await cedula.getMarcketplaceCedula();
+  console.log(cedulas.value);
+});
 </script>
 <style></style>

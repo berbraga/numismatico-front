@@ -1,30 +1,31 @@
 <template lang="pug">
 q-card(color="white" class="q-pa-md container")
   q-card-section
-    .flex.column
+    div.flex
       h6 Login
+      q-space
+      router-link( to="/forgot-password")
+          p.text-right.text-primary Esqueceu a senha?
   q-separator(class='q-mb-md')
   q-card-section(class="q-pt-md")
-    q-input(outlined label="Email" v-model="email" type="email" class="q-mb-md" dense)
-    q-input(outlined label="Password" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense)
-      template(v-slot:append)
-        q-icon(
-          :name="isPwd ? 'visibility_off' : 'visibility'"
-          class="cursor-pointer"
-          @click="isPwd = !isPwd"
-        )
-    router-link( to="/forgot-password")
-      p.text-right.text-primary Esqueceu a senha?
-  q-card-section
-    q-card-action(class="row")
-      router-link(to="/register" class="col q-mx-md")
-        q-btn(color="primary" label="Login" @click="Login" dense class="" flat  :ripple="{  center: true }" )
-      q-space
-      router-link(to="/dashboard" class="col q-mx-md")
-        q-btn(color="primary" label="Criar conta" @click="NewAccont" dense class="" flat :ripple="{  center: true }")
+    q-form(@submit.prevent="onSubmit"  class="q-gutter-sm collum" )
+      q-input(outlined label="Email" v-model="email" type="email" class="q-mb-md" dense)
+      q-input(outlined label="Password" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense)
+        template(v-slot:append)
+          q-icon(
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          )
+      div(class="flex")
+        q-btn(label="Entrar" type="submit" color="primary" class="col-3")
+        q-space
+        router-link(to="/register" class="col q-mx-md")
+          q-btn(color="primary" label="register" @click="Login" dense class="" flat  :ripple="{  center: true }" )
 </template>
 
 <script setup>
+import userService from "src/services/userService";
 import { ref } from "vue";
 const email = ref("");
 const password = ref("");
@@ -36,6 +37,22 @@ const Login = () => {
 };
 const NewAccont = () => {
   lodingNewAccont.value = true;
+};
+
+const onSubmit = async () => {
+  console.clear();
+  const body = {
+    email: email.value,
+    password: password.value,
+  };
+  const user = new userService();
+  const res = await user.login(body);
+  console.log(res.data);
+  if (res.data.status) {
+    localStorage.setItem("user", res.data.user);
+    history.pushState(null, "", "#/dashboard/portfolio");
+    location.reload();
+  }
 };
 </script>
 

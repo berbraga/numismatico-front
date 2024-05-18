@@ -103,6 +103,7 @@ q-page(class="q-pa-md q-ma-md bd-black")
 
 <script setup>
 import { useQuasar } from "quasar";
+import cedulaService from "src/services/cedulaService";
 import { ref } from "vue";
 
 const $q = useQuasar();
@@ -144,10 +145,13 @@ const onSubmit = async () => {
     material: material.value,
     available_sell: available_sell.value,
     url_img: await convertToBase64(url_img.value[0]),
-
+    user_id: 1,
     available_sell: available_sell.value,
   };
-  console.log(body);
+  console.log(JSON.stringify(body));
+  const cedula = new cedulaService();
+  const bernardo = await cedula.create(body);
+  console.log(bernardo);
 
   // if (accept.value !== true) {
   //   $q.notify({

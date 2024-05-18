@@ -13,13 +13,27 @@
       </q-card-section>
 
       <q-card-section>
-        <Cedula />
-        <Cedula isToSell />
+        <Cedula
+          v-for="cedula in cedulas"
+          :key="cedula.id"
+          :cedula="cedula"
+          changeble
+        />
       </q-card-section>
     </q-card>
   </q-page>
 </template>
+
 <script setup>
+import { ref, onMounted } from "vue";
 import Cedula from "../../components/Card/Cedula.vue";
 import PrimaryButton from "src/components/Button/PrimaryButton.vue";
+import cedulaService from "src/services/cedulaService";
+
+const cedulas = ref([]);
+onMounted(async () => {
+  const cedula = new cedulaService();
+  cedulas.value = await cedula.getMyCedula(1);
+  console.log(cedulas.value);
+});
 </script>
