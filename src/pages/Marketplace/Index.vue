@@ -5,7 +5,7 @@ q-page(class="q-pa-md bd-black")
       q-card-title(class="flex items-center")
         h6 Mercado
         q-space
-        router-link(to="/dashboard/portfolio/add")
+        //- router-link(to="/dashboard/portfolio/add")
           PrimaryButton Adicionar
     q-card-section
 
