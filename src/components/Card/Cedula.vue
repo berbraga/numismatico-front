@@ -25,9 +25,7 @@ q-card(
       q-space
       q-btn(outline v-if="changeble" color="primary" label="Vender Ela!" @click="toSell()" )
       q-space( v-if="changeble")
-      p Valor de Compra: <b>R${{ cedula.name }}</b>
-
-
+      p Valor de Compra: <b>R${{ formatNumber(cedula.price) }}</b>
     q-dialog( v-model="basic" transition-show="rotate" transition-hide="rotate")
       q-card
         q-card-section
@@ -53,6 +51,22 @@ const toSell = async () => {
   const cedula = new cedulaService();
   await cedula.changeToMarketplace(props.cedula.id);
   location.reload();
+};
+
+const formatNumber = (numberString) => {
+  // Remove qualquer caractere não numérico
+  const cleanNumberString = numberString.replace(/\D/g, "");
+
+  // Converte a string para um número
+  const number = parseFloat(cleanNumberString);
+
+  // Formata o número para o padrão desejado
+  const formattedNumber = number.toLocaleString("pt-BR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  return formattedNumber;
 };
 
 const basic = ref(false);

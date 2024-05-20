@@ -32,8 +32,9 @@ import cedulaService from "src/services/cedulaService";
 
 const cedulas = ref([]);
 onMounted(async () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const cedula = new cedulaService();
-  cedulas.value = await cedula.getMyCedula(1);
+  cedulas.value = await cedula.getMyCedula(user.id);
   console.log(cedulas.value);
 });
 </script>

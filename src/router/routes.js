@@ -16,6 +16,18 @@ const routes = [
         path: "portfolio/add",
         component: () => import("pages/Portfolio/Form/Add.vue"),
       },
+      {
+        path: "collections",
+        component: () => import("pages/Collections/Index.vue"),
+      },
+      {
+        path: "collections/add",
+        component: () => import("pages/Collections/Form/Add.vue"),
+      },
+      {
+        path: "collections/add/:collectionId",
+        component: () => import("pages/Collections/Form/Edit.vue"),
+      },
     ],
   },
   {

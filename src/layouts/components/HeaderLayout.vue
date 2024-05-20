@@ -1,5 +1,4 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<template lang="">
+<template>
   <q-header reveal class="bg-primary text-white" height-hint="50">
     <q-toolbar>
       <q-img
@@ -19,36 +18,34 @@
           label="Mercado"
           style="color: black"
         />
+        <q-route-tab
+          to="/dashboard/collections"
+          label="Coleções"
+          style="color: black"
+        />
         <!-- <q-route-tab to="/page3" label="Page Three" /> -->
       </q-tabs>
       <q-space />
 
       <q-btn color="black" flat fab-mini ripple square push>
-        <!-- ppend="card_giftcard" -->
+        <!-- append="card_giftcard" -->
         <q-icon left size="" name="person" />
-        <p class="q-mb-none">bernardo</p>
+        <p class="q-mb-none">{{ user.name }}</p>
         <q-menu>
           <div class="row no-wrap q-pa-md">
-            <div class="column">
-              <div class="text-h6 q-mb-md">Settings</div>
-              <q-toggle v-model="mobileData" label="Use Mobile Data" />
-              <q-toggle v-model="bluetooth" label="Bluetooth" />
-            </div>
-
-            <q-separator vertical inset class="q-mx-lg" />
-
             <div class="column items-center">
               <q-avatar size="72px">
                 <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
               </q-avatar>
 
-              <div class="text-subtitle1 q-mt-md q-mb-xs">Bernardo</div>
+              <div class="text-subtitle1 q-mt-md q-mb-xs">{{ user.name }}</div>
 
               <q-btn
                 color="primary"
                 label="Sair"
                 push
                 size="sm"
+                @click="logout"
                 v-close-popup
               />
             </div>
@@ -58,7 +55,34 @@
     </q-toolbar>
   </q-header>
 </template>
-<script>
-export default {};
+
+<script setup>
+import { ref, watchEffect } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+const user = ref(
+  JSON.parse(localStorage.getItem("user")) || { name: "sem nome" }
+);
+
+const updateUser = () => {
+  user.value = JSON.parse(localStorage.getItem("user"));
+};
+
+watchEffect(() => {
+  window.addEventListener("storage", updateUser);
+  return () => {
+    window.removeEventListener("storage", updateUser);
+  };
+});
+
+const logout = () => {
+  localStorage.removeItem("user");
+  user.value = { name: "sem nome" };
+  router.replace("/");
+};
 </script>
-<style lang=""></style>
+
+<style scoped>
+/* Adicione seus estilos aqui */
+</style>

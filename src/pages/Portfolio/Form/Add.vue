@@ -134,7 +134,7 @@ const convertToBase64 = (file) => {
 const onSubmit = async () => {
   console.clear();
   console.log("ENVIADO PARA LA BASE DE DADOS");
-
+  const user = JSON.parse(localStorage.getItem("user"));
   const body = {
     name: name.value,
     year: year.value,
@@ -145,7 +145,7 @@ const onSubmit = async () => {
     material: material.value,
     available_sell: available_sell.value,
     url_img: await convertToBase64(url_img.value[0]),
-    user_id: 1,
+    user_id: user.id + "",
     available_sell: available_sell.value,
   };
   console.log(JSON.stringify(body));

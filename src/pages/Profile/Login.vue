@@ -10,7 +10,7 @@ q-card(color="white" class="q-pa-md container")
   q-card-section(class="q-pt-md")
     q-form(@submit.prevent="onSubmit"  class="q-gutter-sm collum" )
       q-input(outlined label="Email" v-model="email" type="email" class="q-mb-md" dense)
-      q-input(outlined label="Password" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense)
+      q-input(outlined label="Senha" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense)
         template(v-slot:append)
           q-icon(
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -49,7 +49,7 @@ const onSubmit = async () => {
   const res = await user.login(body);
   console.log(res.data);
   if (res.data.status) {
-    localStorage.setItem("user", res.data.user);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
     history.pushState(null, "", "#/dashboard/portfolio");
     location.reload();
   }
