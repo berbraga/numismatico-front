@@ -9,7 +9,7 @@ q-page(class="q-pa-md bd-black")
           PrimaryButton Adicionar
     q-card-section
 
-      Cedula(v-for="cedula in cedulas" :key="cedula.id" :cedula="cedula" )
+      Cedula(v-for="cedula in cedulas" :key="cedula.id" :cedula="cedula" ofPerson )
 </template>
 <script setup>
 import Cedula from "../../components/Card/Cedula.vue";

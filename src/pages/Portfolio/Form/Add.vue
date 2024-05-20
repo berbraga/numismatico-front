@@ -105,7 +105,9 @@ q-page(class="q-pa-md q-ma-md bd-black")
 import { useQuasar } from "quasar";
 import cedulaService from "src/services/cedulaService";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const $q = useQuasar();
 const name = ref(null);
 const year = ref(null);
@@ -151,23 +153,8 @@ const onSubmit = async () => {
   console.log(JSON.stringify(body));
   const cedula = new cedulaService();
   const bernardo = await cedula.create(body);
-  console.log(bernardo);
-
-  // if (accept.value !== true) {
-  //   $q.notify({
-  //     color: "red-5",
-  //     textColor: "white",
-  //     icon: "warning",
-  //     messyear: "You need to accept the license and terms first",
-  //   });
-  // } else {
-  //   $q.notify({
-  //     color: "green-4",
-  //     textColor: "white",
-  //     icon: "cloud_done",
-  //     messyear: "Submitted",
-  //   });
-  // }
+  console.log(available_sell.value);
+  router.replace("/dashboard/portfolio");
 };
 
 const onReset = () => {

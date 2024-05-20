@@ -25,7 +25,10 @@ q-card(
       q-space
       q-btn(outline v-if="changeble" color="primary" label="Vender Ela!" @click="toSell()" )
       q-space( v-if="changeble")
-      p Valor de Compra: <b>R${{ formatNumber(cedula.price) }}</b>
+      div( class="column")
+        p( v-if="ofPerson" class="self-end") de: <b>{{ cedula.user.name }}</b>
+
+        p Valor de Compra: <b>R${{ formatNumber(cedula.price) }}</b>
     q-dialog( v-model="basic" transition-show="rotate" transition-hide="rotate")
       q-card
         q-card-section
@@ -46,6 +49,7 @@ import cedulaService from "src/services/cedulaService";
 const props = defineProps({
   cedula: Object,
   changeble: Boolean,
+  ofPerson: Boolean,
 });
 const toSell = async () => {
   const cedula = new cedulaService();
