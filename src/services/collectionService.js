@@ -34,7 +34,7 @@ export default class collectionService {
   async edit(collectionId, body) {
     try {
       return await axios.post(
-        `${this.URL}/${this.userId}/${collectionId}/add`,
+        `${this.URL}/${this.userId}/${collectionId}/edit`,
         { ...body }
       );
     } catch (err) {

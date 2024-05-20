@@ -20,14 +20,14 @@ q-page(class="q-pa-md q-ma-md bd-black")
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something' ]"
           )
-          q-input(
-            class="col-5"
-            @update:model-value="val => { url_img = val }"
-            multiple
-            outlined
-            type="file"
-            hint="Escolha foto da Coleção"
-          )
+          //- q-input(
+          //-   class="col-5"
+          //-   @update:model-value="val => { url_img = val }"
+          //-   multiple
+          //-   outlined
+          //-   type="file"
+          //-   hint="Escolha foto da Coleção"
+          //- )
           q-input(
             class="col-4"
             v-model="observation"
@@ -35,7 +35,7 @@ q-page(class="q-pa-md q-ma-md bd-black")
             label="Descrição da Cédula"
             autogrow
           )
-          q-select(v-model="model" multiple clearable :options="options" outlined label="Standard" class="col-4" v-if="options.length > 0")
+          q-select(v-model="model" multiple clearable :options="options" outlined label="Standard" class="col-4" v-if="options.length > 0" :rules="[val => (val && val.length > 0) || 'Este campo é obrigatório']")
           div( v-else class="text-p")
             router-link(to="/dashboard/portfolio/add")
               p Por favor adicione uma cedula
@@ -47,10 +47,12 @@ import { useQuasar } from "quasar";
 import cedulaService from "src/services/cedulaService";
 import collectionService from "src/services/collectionService";
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const $q = useQuasar();
 const name = ref(null);
-const url_img = ref([]);
+const url_img = ref("");
 const observation = ref("");
 const model = ref(null);
 const options = ref([]);
@@ -95,13 +97,14 @@ const onSubmit = async () => {
   const body = {
     name: name.value,
     observation: observation.value,
-    url_img: await convertToBase64(url_img.value[0]),
+    url_img: "",
     money_id: userId,
   };
   // console.log(JSON.stringify(body));
   const collections = new collectionService();
   const bernardo = await collections.add(body);
   console.log(body, bernardo);
+  router.replace("/dashboard/collections");
 };
 
 const onReset = () => {

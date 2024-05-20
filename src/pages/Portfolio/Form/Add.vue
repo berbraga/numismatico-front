@@ -18,7 +18,7 @@ q-page(class="q-pa-md q-ma-md bd-black")
               label="Pais de Origem:"
               hint="Brasil, EUA, Russia, etc"
               lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something' ]"
+              :rules="[ val => val && val.length > 0 || 'CAMPO OBRIGATÓRIO' ]"
             )
             q-input(
               class="col-5"
@@ -27,7 +27,7 @@ q-page(class="q-pa-md q-ma-md bd-black")
               label="Nome"
               hint="Nome da Cedula"
               lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something' ]"
+              :rules="[ val => val && val.length > 0 || 'CAMPO OBRIGATÓRIO' ]"
             )
             q-input(
               class="col-5"
@@ -35,7 +35,8 @@ q-page(class="q-pa-md q-ma-md bd-black")
               multiple
               outlined
               type="file"
-              hint="Escolha foto da Cédula"
+              hint="Escolha foto da Cédula, OBRIGATÓRIO"
+
             )
 
           div(class="q-gutter-sm row")
@@ -46,7 +47,7 @@ q-page(class="q-pa-md q-ma-md bd-black")
               label="Material:"
               hint="polimero, papel, plastico,etc"
               lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something' ]"
+              :rules="[ val => val && val.length > 0 || 'CAMPO OBRIGATÓRIO' ]"
             )
             q-input(
               class="col-2"
@@ -55,7 +56,7 @@ q-page(class="q-pa-md q-ma-md bd-black")
               label="Concervação:"
               hint="FE, MDI, ...."
               lazy-rules
-              :rules="[ val => val && val.length > 0 || 'Please type something' ]"
+              :rules="[ val => val && val.length > 0 || 'CAMPO OBRIGATÓRIO' ]"
             )
             q-input(
               class="col-2"

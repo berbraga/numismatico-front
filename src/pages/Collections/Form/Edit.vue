@@ -20,14 +20,14 @@ q-page(class="q-pa-md q-ma-md bd-black")
             lazy-rules
             :rules="[ val => val && val.length > 0 || 'Please type something' ]"
           )
-          q-input(
-            class="col-5"
-            @update:model-value="val => { url_img = val }"
-            multiple
-            outlined
-            type="file"
-            hint="Escolha foto da Coleção"
-          )
+          //- q-input(
+          //-   class="col-5"
+          //-   @update:model-value="val => { url_img = val }"
+          //-   multiple
+          //-   outlined
+          //-   type="file"
+          //-   hint="Escolha foto da Coleção"
+          //- )
           q-input(
             class="col-4"
             v-model="observation"
@@ -45,12 +45,13 @@ import cedulaService from "src/services/cedulaService";
 import collectionService from "src/services/collectionService";
 import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 const $q = useQuasar();
 const route = useRoute(); // use useRoute to get the route object
-
+const router = useRouter();
 const name = ref(null);
-const url_img = ref([]);
+const url_img = ref("");
 const observation = ref("");
 const model = ref([]);
 const options = ref([]);
@@ -93,7 +94,7 @@ onMounted(async () => {
 
   name.value = collectionDetails.name;
   observation.value = collectionDetails.observation;
-  url_img.value = collectionDetails.url_img;
+  // url_img.value = collectionDetails.url_img;
 
   model.value = collectionDetails.moneys.map((item) => {
     return {
@@ -111,7 +112,7 @@ const onSubmit = async () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = [];
   model.value.forEach((item) => {
-    userId.push(item);
+    userId.push(item.value);
   });
   console.clear();
   console.log(userId);
@@ -119,13 +120,14 @@ const onSubmit = async () => {
   const body = {
     name: name.value,
     observation: observation.value,
-    url_img: await convertToBase64(url_img.value[0]),
+    url_img: "",
     money_id: userId,
   };
   console.log("Form data:", body);
   const collections = new collectionService();
   const bernardo = await collections.edit(collectionId, body);
   console.log(body, bernardo);
+  router.replace("/dashboard/collections");
 };
 
 // Function to reset form fields
