@@ -32,7 +32,7 @@ q-page(class="q-pa-md q-ma-md bd-black")
             class="col-4"
             v-model="observation"
             outlined
-            label="Descrição da Cédula"
+            label="Descrição da Coleção:"
             autogrow
           )
           q-select(v-model="model" multiple clearable :options="options" outlined label="Standard" class="col-4" v-if="options.length > 0" :rules="[val => (val && val.length > 0) || 'Este campo é obrigatório']")

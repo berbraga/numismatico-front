@@ -9,8 +9,8 @@ q-card(color="white" class="q-pa-md container")
   q-separator(class='q-mb-md')
   q-card-section(class="q-pt-md")
     q-form(@submit.prevent="onSubmit"  class="q-gutter-sm collum" )
-      q-input(outlined label="Email" v-model="email" type="email" class="q-mb-md" dense)
-      q-input(outlined label="Senha" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense)
+      q-input(outlined label="Email" v-model="email" type="email" class="q-mb-md" dense :rules="[ val => val && val.length > 0 || 'CAMPO OBRIGATÓRIO', val => /.+@.+\..+/.test(val) || 'EMAIL INVÁLIDO', val => /.+@.+\.com$/.test(val) || 'EMAIL DEVE TERMINAR EM .COM' ]")
+      q-input(outlined label="Senha" v-model="password" :type="isPwd ? 'password' : 'text'" class="q-my-md" dense :rules="[ val => val && val.length > 0 || 'CAMPO OBRIGATÓRIO' ]")
         template(v-slot:append)
           q-icon(
             :name="isPwd ? 'visibility_off' : 'visibility'"

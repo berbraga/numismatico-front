@@ -23,7 +23,7 @@ q-card(
     div(class="flex items-center q-my-md")
       q-btn(outline color="primary" label="Observações" @click="basic = true" )
       q-space
-      q-btn(outline v-if="changeble" color="primary" label="Vender Ela!" @click="toSell()" )
+      q-btn(outline v-if="changeble" color="primary" :label="cedula.available_sell===0 ? 'Vender Ela!': 'Tirar da venda!'" @click="toSell()" )
       q-space( v-if="changeble")
       div( class="column")
         p( v-if="ofPerson" class="self-end") de: <b>{{ cedula.user.name }}</b>
@@ -32,7 +32,7 @@ q-card(
     q-dialog( v-model="basic" transition-show="rotate" transition-hide="rotate")
       q-card
         q-card-section
-          div( class="text-h6") Terms of Agreement
+          div( class="text-h6") Descrição
 
         q-card-section( class="q-pt-none")
           p(  ) {{ cedula.observation }}
@@ -58,11 +58,21 @@ const toSell = async () => {
 };
 
 const formatNumber = (numberString) => {
-  // Remove qualquer caractere não numérico
-  const cleanNumberString = numberString.replace(/\D/g, "");
+  // Remove qualquer caractere não numérico, exceto o ponto (.) e a vírgula (,)
+  const cleanNumberString = numberString.replace(/[^0-9.,]/g, "");
 
-  // Converte a string para um número
-  const number = parseFloat(cleanNumberString);
+  // Se a string contém vírgula, presumimos que é separador decimal no formato brasileiro
+  let number;
+  if (cleanNumberString.includes(",")) {
+    // Troca vírgula por ponto para converter para número corretamente
+    const normalizedNumberString = cleanNumberString
+      .replace(/\./g, "")
+      .replace(",", ".");
+    number = parseFloat(normalizedNumberString);
+  } else {
+    // Se não há vírgula, presumimos que já está no formato correto
+    number = parseFloat(cleanNumberString);
+  }
 
   // Formata o número para o padrão desejado
   const formattedNumber = number.toLocaleString("pt-BR", {
