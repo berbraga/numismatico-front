@@ -10,21 +10,21 @@ export default class userService {
 
       return;
     } catch (err) {
-      return err.getMessage();
+      return alert(err.getMessage());
     }
   }
   async register(body) {
     try {
       return await axios.post(`${this.URL}/register`, { ...body });
     } catch (err) {
-      return err.getMessage();
+      return alert(err.getMessage());
     }
   }
   async resetpassword(body) {
     try {
       return await axios.post(`${this.URL}/resetpassword`, { ...body });
     } catch (err) {
-      return err.getMessage();
+      return alert(err.getMessage());
     }
   }
 }
